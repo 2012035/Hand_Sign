@@ -6,7 +6,7 @@ import hand_tracking as ht
 import numpy as np
 import tensorflow
 from cvzone import ClassificationModule as cm
-print("hi")
+
 
 video=cv2.VideoCapture(0)
 detect=ht.handDetector(handNo=1)
