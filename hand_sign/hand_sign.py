@@ -14,6 +14,7 @@ detect=ht.handDetector(handNo=1)
 count=0
 label=['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']
 classify=cm.Classifier('Model/keras_model.h5','Model/labels.txt')
+index=-1
 while True:
     s,image=video.read()
     hand=detect.handDetection(image)
@@ -36,6 +37,7 @@ while True:
         h=box[0][3]
         ratio=h/w
         white=np.ones((300,300,3),np.uint8)*255
+
         if(ratio>1):
             cut=image[y-20:y+h+20,x-20:x+h+5]
             cut = cv2.resize(cut, (200, 300))
@@ -59,10 +61,14 @@ while True:
             count+=1
             print(count)
             cv2.imwrite(f'{folder}/image_{time.time()}.jpg',white)
+
+
         cv2.putText(hand,label[index],(x,y),cv2.FONT_HERSHEY_SIMPLEX,2,(255,0,0))
         cv2.imshow('white',white)
 
-
+    string = ''
+    string += label[index];
+    print(string)
     cv2.imshow("Hand_Sign",image)
     if(cv2.waitKey(1)& 0xff==ord('z')):
        break
